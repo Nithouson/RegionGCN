@@ -43,4 +43,4 @@ doi = {10.1080/24694452.2025.2558661}
 ```
 
 ## Contact
-If you have any questions, feel free to contact us through email sinesloop@pku.edu.cn.
+If you have any questions, feel free to contact me through email sinesloop@pku.edu.cn.
