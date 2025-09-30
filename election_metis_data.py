@@ -1,7 +1,7 @@
 import openpyxl
 import copy
 from libpysal import weights
-from models_6 import weights_to_graph
+from reggcn import weights_to_graph
 
 
 def common_region(ra, rb):
@@ -13,7 +13,7 @@ def common_region(ra, rb):
     return c
 
 
-rook = weights.Rook.from_shapefile('../data/election/cb_2014_cus_county_dropmz.shp', idVariable='GEOID')
+rook = weights.Rook.from_shapefile('cb_2016_cus_county_500k.shp', idVariable='GEOID')
 links = copy.copy(rook.neighbors)
 links['25001'] += ['25007', '25019']  # Barnstable County, MA
 links['25007'] += ['25001', '25019']  # Dukes County, MA
@@ -30,16 +30,18 @@ g = weights_to_graph(w)
 nodes = g.number_of_nodes()
 print(nodes)
 
-reg_wb = openpyxl.load_workbook("reggcn_zones_4.xlsx")
+reg_wb = openpyxl.load_workbook("zone_file.xlsx")
+# a file recording multiple zoning results, each row for a county and column for a partition
 reg_ws = reg_wb['regions']
 assert reg_ws.max_row == nodes + 1
 reg_dict = dict()
 for r in range(2, nodes + 2):
     id = reg_ws.cell(r, 1).value
     region = [reg_ws.cell(r, c).value for c in range(3, 13)]
+    # column 3,4,...,12 are region indexes
     reg_dict[id] = region
 
-mf = open("reggcn4.txt","w")
+mf = open("metis_graph.txt","w")
 mf.write(f"{g.number_of_nodes()} {g.number_of_edges()} 001\n")
 for v in range(nodes):
     edges = dict()
@@ -48,4 +50,3 @@ for v in range(nodes):
     mf.write(" ".join([f"{vn} {edges[vn]}" for vn in edges.keys()]))
     mf.write("\n")
 mf.close()
-
