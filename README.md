@@ -66,7 +66,13 @@ Run ``election_deepwalk.py`` to learn node embeddings in the US county adjacency
 Run ``election.py`` for spatial prediction of vote share with the following models: ANN-DeepWalk (``model_type = 'ann-dw'``), GCN-DeepWalk (``model_type = 'srgcn-dw'``), RegionGCN-DeepWalk (``model_type = 'reggcn-dw'``).
 - Similarly, to run RegionGCN-DeepWalk, you **MUST** run GCN-DeepWalk first with the same random seed.
 
-### 5. 
+### 5. Region Ensemble
+- Assemble zoning results from multiple RegionGCN runs into a single Excel table (this can be done by combining the `region` columns in the log file from ``election.py``).
+- Run ``election_metis_data.py`` to generate the input file following the METIS format.
+- Run ``graph_partition.cpp`` to get region ensemble results. You may change the u factor (``METIS_OPTION_UFACTOR``) and region count (``parts``).
+
+## Note
+Due to the computational cost of the dynamic zoning module, the training time of RegionGCN is about a magnitude longer than GCN. Currently, RegionGCN is not scalable to large spatial data sets with over $10^4$ spatial units,
 
 ## Citation
 If you use this code in your research, please cite:
