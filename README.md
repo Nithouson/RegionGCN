@@ -40,9 +40,9 @@ We provide our implementation of RegionGCN, as well as codes to reproduce our an
 ### 1. Preparation
 - Make sure that you have installed Python dependencies. ``pytorch``, ``pytorch-geometric``,``scikit-learn``, ``libpysal`` and ``pandas`` are necessary.
 - You also need the C package [METIS](https://github.com/KarypisLab/METIS) if a region ensemble is intended.
-- Download the shapefile for US counties in 2016 from [Census.gov](www.census.gov/geographies/mapping-files/time-series/geo/carto-boundary-file.html).
+- Download the shapefile for US counties in 2016 from [Census.gov](https://www.census.gov/geographies/mapping-files/time-series/geo/carto-boundary-file.html).
 - Subset the 3,108 counties within the Contiguous US from the shapefile. This can be done in any GIS software.
-- Collect the [vote share data](doi.org/10.7910/DVN/VOQCHQ) and [socioeconomic covariates](www.census.gov). You may also use our processed data ``county_attr.csv``.
+- Collect the [vote share data](https://doi.org/10.7910/DVN/VOQCHQ) and [socioeconomic covariates](https://www.census.gov). You may also use our processed data ``county_attr.csv``.
 
 ### 2. Vote share prediction
 Run ``election.py`` for spatial prediction of vote share with the following models: ANN (``model_type = 'ann'``), GCN (``model_type = 'srgcn'``), GWGCN (``model_type = 'gwgcn'``), RegionGCN (``model_type = 'reggcn'``).
